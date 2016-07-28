@@ -5,6 +5,7 @@ RUN groupadd -r kibana && useradd -r -m -g kibana kibana
 
 RUN apt-get update && apt-get install -y \
 		ca-certificates \
+		curl \
 		wget \
 	--no-install-recommends && rm -rf /var/lib/apt/lists/*
 
@@ -54,6 +55,7 @@ RUN set -x \
 ENV PATH /opt/kibana/bin:$PATH
 
 COPY docker-entrypoint.sh /
+COPY import-shakespeare.sh /
 
 EXPOSE 5601
 ENTRYPOINT ["/docker-entrypoint.sh"]
